@@ -37,6 +37,8 @@ Terminal | Command
 ---------|--------
 **Windows Powershell** | `go build -o secret.exe cmd/cli.go`
 
+I recommend moving **secret** and **cipher** to your main go src directory because the source code has import paths relative to it.
+
 After building, you're done! You should be able to see `secret.exe` in your folder.
 
 ----
