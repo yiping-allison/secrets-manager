@@ -1,12 +1,13 @@
 package secret
 
 import (
-	"cipher"
 	"encoding/json"
 	"errors"
 	"io"
 	"os"
 	"sync"
+
+	"github.com/yiping-allison/secrets-manager/cipher"
 )
 
 // File creates an instance of a Vault file, where all your secret keys and values

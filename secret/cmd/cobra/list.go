@@ -2,9 +2,9 @@ package cobra
 
 import (
 	"fmt"
-	"secret"
 
 	"github.com/spf13/cobra"
+	"github.com/yiping-allison/secrets-manager/secret"
 )
 
 var listCmd = &cobra.Command{
