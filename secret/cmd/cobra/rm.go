@@ -9,7 +9,7 @@ import (
 
 var rmCmd = &cobra.Command{
 	Use:   "rm",
-	Short: "removes a secret from your secret storage",
+	Short: "Removes a secret from your secret storage",
 	Run: func(cmd *cobra.Command, args []string) {
 		v := secret.File(encodingKey, secretsPath())
 		key := args[0]
