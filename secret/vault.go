@@ -69,6 +69,12 @@ func (v *Vault) writeKeyValues(w io.Writer) error {
 	return enc.Encode(v.keyValues)
 }
 
+// Delete will delete an existing secrets file from the user directory
+func (v *Vault) Delete() error {
+	err := os.Remove(v.filepath)
+	return err
+}
+
 // Get will retrieve the value of the given key provided by the user
 func (v *Vault) Get(key string) (string, error) {
 	v.mutex.Lock()
