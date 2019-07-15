@@ -37,6 +37,18 @@ Terminal | Command
 ---------|--------
 **Windows Powershell** | `go build -o secret.exe cmd/cli.go`
 
+#### Building For a Different Architecture ####
+
+Go makes it easy to build executable files for an architecture other than your own. To do so, set your environment variable to the
+desired architecture, then run the build command.
+
+Windows Powershell | Command
+-------------------|--------------
+Set New Environment | `$Env:GOOS = "linux" `
+Check Current Go Env | `go env`
+
+For a complete list of Go environments, visit the [docs](https://golang.org/doc/install/source#environment).
+
 After building, you're done! You should be able to see `secret.exe` in your current directory.
 
 ----
@@ -48,23 +60,33 @@ option is to include no key.
 
 _Example_
 
-`./secret set my_API_key 'some-random-key' -k 'myEncodingKey'`
+`./secret set my_API_key 'some-random-key' -k 'yourEncodingKey'`
 
 Make sure to remember your key if you set one! You need the key for subsequent uses to your secret file.
 
 If you accidently set the wrong encoding key, you can use the `delete` command and restart your Secret file. 
 
+The newly created secret file will reside in your home directory. The default path for Windows users will be 
+`C:\Users\yourUsername`.
+The file will be listed as `.secrets - SECRETS File`.
+
 ----
 
 ### CLI Commands ###
 
-Function | Command
+Function | Windows Powershell Command
 ---------|---------
-Set      | `./secret set my_API_key 'some-random-key' -k 'myEncodingKey'`
-Get      | `./secret get my_API_key -k 'myEncodingKey'`
-List     | `./secret list -k 'myEncodingKey'`
-Remove   | `./secret rm my_API_key -k 'myEncodingKey'`
-Delete   | `./secret delete -k 'myEncodingKey'`
+Set      | `./secret set my_API_key 'some-random-key' -k 'yourEncodingKey'`
+Get      | `./secret get my_API_key -k 'yourEncodingKey'`
+List     | `./secret list -k 'yourEncodingKey'`
+Remove   | `./secret rm my_API_key -k 'yourEncodingKey'`
+Delete   | `./secret delete -k 'yourEncodingKey'`
+
+> CLI commands may differ slightly depending on which terminal/Operating System you use.
+
+**Example macOS Terminal Command**
+
+ `./secret.exe set my_API_key 'some-random-key' -k 'yourEncodingKey'`
 
 ----
 
