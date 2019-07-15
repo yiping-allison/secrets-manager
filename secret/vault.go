@@ -1,8 +1,11 @@
 package secret
 
 import (
+	"bufio"
+	"encoding/csv"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"os"
 	"sync"
@@ -18,6 +21,44 @@ func File(encodingKey, filepath string) *Vault {
 		encodingKey: encodingKey,
 		filepath:    filepath,
 	}
+}
+
+// ImportCSV will check if there isn't an existing .secrets file and create
+// a .secrets file from parsed csv values
+func ImportCSV(encodingKey, filepath, filename string) error {
+	if _, err := os.Stat(filepath); !os.IsNotExist(err) {
+		e := fmt.Errorf("you have an existing secrets file in your home directory - please use the delete command before importing a new csv")
+		return e
+	}
+	if checkValidFile(filename) {
+		values, err := parseCSV(filename)
+		if err != nil {
+			return fmt.Errorf("error parsing csv file")
+		}
+		v := File(encodingKey, filepath)
+		for _, val := range values {
+			v.Set(val[0], val[1])
+		}
+	}
+	return nil
+}
+
+func checkValidFile(filename string) bool {
+	if _, err := os.Stat(filename); os.IsNotExist(err) {
+		return false
+	}
+	return true
+}
+
+func parseCSV(filename string) ([][]string, error) {
+	fcsv, _ := os.OpenFile(filename, os.O_RDWR, 0755)
+	defer fcsv.Close()
+	rcsv := csv.NewReader(bufio.NewReader(fcsv))
+	records, err := rcsv.ReadAll()
+	if err != nil {
+		return nil, fmt.Errorf("error parsing csv file")
+	}
+	return records, nil
 }
 
 // Vault is a struct with the basic userinfo including:
@@ -130,4 +171,23 @@ func (v *Vault) Remove(key string) error {
 	delete(v.keyValues, key)
 	err = v.save()
 	return err
+}
+
+// AppendCSV will take in a filename and open/parse it as a CSV file.
+// The data parsed will be appended to the current existing secrets file.
+func (v *Vault) AppendCSV(filename string) error {
+	if !checkValidFile(filename) {
+		return fmt.Errorf("error opening file")
+	}
+	values, err := parseCSV(filename)
+	if err != nil {
+		return err
+	}
+	for _, item := range values {
+		err = v.Set(item[0], item[1])
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
