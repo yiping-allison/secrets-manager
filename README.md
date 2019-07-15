@@ -13,6 +13,8 @@ The CLI currently supports the following functionalities:
 - [x] List - lists the names of all the stored keys in your secret file
 - [x] Remove - removes a key value pair based on given key
 - [x] Delete - removes an existing Secrets file from your user directory
+- [x] Import CSV - imports key-value pairs from a csv to a new secrets file
+- [x] Append CSV - appends key-value pairs from a csv to an existing secrets file
 
 ----
 
@@ -26,6 +28,8 @@ go get github.com/spf13/cobra/cobra
 ```
 
 These commands should install the necessary dependencies that the Secrets Manager requires.
+
+----
 
 ### Building ###
 
@@ -81,6 +85,8 @@ Get      | `./secret get my_API_key -k 'yourEncodingKey'`
 List     | `./secret list -k 'yourEncodingKey'`
 Remove   | `./secret rm my_API_key -k 'yourEncodingKey'`
 Delete   | `./secret delete -k 'yourEncodingKey'`
+Import CSV | `./secret importcsv 'yourCSV.csv' -k 'yourEncodingKey'`
+Append CSV |  `./secret appendcsv 'yourCSV.csv' -k 'yourEncodingKey'`
 
 > CLI commands may differ slightly depending on which terminal/Operating System you use.
 
@@ -92,6 +98,9 @@ Delete   | `./secret delete -k 'yourEncodingKey'`
 
 **Please NOTE: This was built as an exercise for me to learn Go. This is not meant to be an industry grade password/API key encryptor.
 As such, please do not attempt to distribute or sell the code unaltered for profit.**
+
+I am still learning Go and various programming concepts. If you have any suggestions or comments about my code, feel free to leave
+an issue or pull request! I appreciate all the help. 
 
 [**License**](LICENSE.md)
 
