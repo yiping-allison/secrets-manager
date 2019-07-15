@@ -69,7 +69,9 @@ Delete   | `./secret delete -k 'myEncodingKey'`
 ----
 
 **Please NOTE: This was built as an exercise for me to learn Go. This is not meant to be an industry grade password/API key encryptor.
-As such, please do not attempt to distribute or sell any of the code for profit.**
+As such, please do not attempt to distribute or sell the code unaltered for profit.**
+
+[**License**](LICENSE.md)
 
 **This project idea was inspired by an exercise from [Gophercises](https://gophercises.com/exercises/secret).**
 
